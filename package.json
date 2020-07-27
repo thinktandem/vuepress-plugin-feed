@@ -1,5 +1,5 @@
 {
-  "name": "vuepress-plugin-feed-frontmatters",
+  "name": "vuepress-plugin-frontmatters-feed",
   "version": "0.1.8",
   "description": "RSS, Atom, and JSON feeds generator plugin for VuePress 1.x with frontmatters generating feeds",
   "main": "index.js",
