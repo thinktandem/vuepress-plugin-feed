@@ -515,7 +515,57 @@ module.exports = ( plugin_options, context ) => ({
 
 			if ( PLUGIN.good_to_go( plugin_options, context ) )
 			{
+				// Generate the root feed.
 				await new LIB.Generator( PLUGIN.pages, PLUGIN.options, context ).generate();
+
+				// Grabs our frontmatters from the config plugin.
+				const frontmatters = [];
+				const feeds = [];
+				let plugins = PLUGIN.pages.slice(0)[0]._context.siteConfig.plugins;
+				if (typeof plugins['@vuepress/blog'] !== 'undefined'
+						&& typeof plugins['@vuepress/blog'].frontmatters !== 'undefined') {
+					for (const f of plugins['@vuepress/blog'].frontmatters) {
+						frontmatters.push(f.id);
+					}
+				}
+
+				// Adds all our pages to an array that will be used to generate the individual feeds.
+				for ( const page of PLUGIN.pages ) {
+					let frontmatter = page.frontmatter;
+					for (const vocab of frontmatters) {
+						if (typeof frontmatter[vocab] !== 'undefined') {
+							for (const taxonomy of frontmatter[vocab]) {
+								feeds[vocab] = [];
+								feeds[vocab][taxonomy] = page;
+							}
+						}
+					}
+				}
+
+				// Generates our frontmatters feeds.
+				for (const vocab_key of Object.keys(feeds)) {
+					for (const taxonomy_key of Object.keys(feeds[vocab_key])) {
+						let name = 'feed-' + vocab_key + '-' + taxonomy_key;
+						let final_pages = [];
+						final_pages.push(feeds[vocab_key][taxonomy_key]);
+
+						// Set the options so they refelect the names.
+						let final_options = PLUGIN.options;
+						for (const [key, final_feed] of Object.entries(final_options.feeds)) {
+							if (final_feed.enable) {
+								// Grab our extension.
+								var re = /(?:\.([^.]+))?$/;
+								var filename = final_feed.file_name;
+								var ext = re.exec(filename)[1];
+								final_options.feeds[key].file_name = name + '.' + ext;
+							}
+						}
+
+						// Now generate the new feed.
+						await new LIB.Generator( final_pages, final_options, context ).generate();
+					}
+				}
+
 			}
 
 		} catch ( err ) {
