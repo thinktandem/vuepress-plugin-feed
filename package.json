@@ -1,7 +1,7 @@
 {
-  "name": "vuepress-plugin-feed",
+  "name": "vuepress-plugin-feed-frontmatters",
   "version": "0.1.8",
-  "description": "RSS, Atom, and JSON feeds generator plugin for VuePress 1.x",
+  "description": "RSS, Atom, and JSON feeds generator plugin for VuePress 1.x with frontmatters generating feeds",
   "main": "index.js",
   "scripts": {
     "version": "git add --all",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/webmasterish/vuepress-plugin-feed.git"
+    "url": "git+https://github.com/thinktandem/vuepress-plugin-feed.git"
   },
   "keywords": [
     "vue",
@@ -31,9 +31,9 @@
     "url": "https://webmasterish.com"
   },
   "license": "MIT",
-  "homepage": "https://github.com/webmasterish/vuepress-plugin-feed",
+  "homepage": "https://github.com/thinktandem/vuepress-plugin-feed",
   "bugs": {
-    "url": "https://github.com/webmasterish/vuepress-plugin-feed/issues"
+    "url": "https://github.com/thinktandem/vuepress-plugin-feed/issues"
   },
   "engines": {
     "node": ">=8"
