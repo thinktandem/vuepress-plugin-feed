@@ -535,8 +535,13 @@ module.exports = ( plugin_options, context ) => ({
 					for (const vocab of frontmatters) {
 						if (typeof frontmatter[vocab] !== 'undefined') {
 							for (const taxonomy of frontmatter[vocab]) {
-								feeds[vocab] = [];
-								feeds[vocab][taxonomy] = page;
+								if (!feeds[vocab]) {
+									feeds[vocab] = [];
+								}
+								if (!feeds[vocab][taxonomy]) {
+									feeds[vocab][taxonomy] = [];
+								}
+								feeds[vocab][taxonomy].push(page);
 							}
 						}
 					}
@@ -546,8 +551,7 @@ module.exports = ( plugin_options, context ) => ({
 				for (const vocab_key of Object.keys(feeds)) {
 					for (const taxonomy_key of Object.keys(feeds[vocab_key])) {
 						let name = 'feed-' + vocab_key + '-' + taxonomy_key;
-						let final_pages = [];
-						final_pages.push(feeds[vocab_key][taxonomy_key]);
+						let final_pages = feeds[vocab_key][taxonomy_key];
 
 						// Set the options so they refelect the names.
 						let final_options = PLUGIN.options;
