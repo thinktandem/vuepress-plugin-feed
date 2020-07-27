@@ -1,4 +1,6 @@
-# VuePress Plugin Feed
+# VuePress Plugin Frontmatters Feed
+
+Fork of VuePress Plugin Feed that allows for creation of feeds via frontmatters categories.  See https://vuepress-theme-blog.ulivz.com/config/#frontmatters for reference on how to set that up in the VuePress Blog plugin.
 
 > RSS, Atom, and JSON feeds generator plugin for VuePress 1.x
 
