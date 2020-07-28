@@ -581,8 +581,6 @@ module.exports = ( plugin_options, context ) => ({
 							final_options.feed_options.feedLinks[key] = feed_link.replace(feed_link_file, final_name);
 						}
 
-						console.log(final_options);
-
 						// Now generate the new feed.
 						await new LIB.Generator( final_pages, final_options, context ).generate();
 					}
