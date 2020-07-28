@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thinktandem/vuepress-plugin-feed.git"
+    "url": "git+https://github.com/thinktandem/vuepress-plugin-frontmatters-feed.git"
   },
   "keywords": [
     "vue",
@@ -31,9 +31,9 @@
     "url": "https://webmasterish.com"
   },
   "license": "MIT",
-  "homepage": "https://github.com/thinktandem/vuepress-plugin-feed",
+  "homepage": "https://github.com/thinktandem/vuepress-plugin-frontmatters-feed",
   "bugs": {
-    "url": "https://github.com/thinktandem/vuepress-plugin-feed/issues"
+    "url": "https://github.com/thinktandem/vuepress-plugin-frontmatters-feed/issues"
   },
   "engines": {
     "node": ">=8"

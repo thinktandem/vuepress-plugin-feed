@@ -553,17 +553,35 @@ module.exports = ( plugin_options, context ) => ({
 						let name = 'feed-' + vocab_key + '-' + taxonomy_key;
 						let final_pages = feeds[vocab_key][taxonomy_key];
 
-						// Set the options so they refelect the names.
+						// Regex used to get file extensions.
+						let re = /(?:\.([^.]+))?$/;
+
+						// Set the options so we can alter them.
 						let final_options = PLUGIN.options;
+
+						// Adjust the feed names themselves.
 						for (const [key, final_feed] of Object.entries(final_options.feeds)) {
 							if (final_feed.enable) {
 								// Grab our extension.
-								var re = /(?:\.([^.]+))?$/;
-								var filename = final_feed.file_name;
-								var ext = re.exec(filename)[1];
+								let filename = final_feed.file_name;
+								let ext = re.exec(filename)[1];
 								final_options.feeds[key].file_name = name + '.' + ext;
 							}
 						}
+
+						// Adjust the feed options description.
+						const taxonomy_key_cap = taxonomy_key.charAt(0).toUpperCase() + taxonomy_key.slice(1);
+						final_options.feed_options.description = taxonomy_key_cap + ' based posts by ' + final_options.feed_options.link;
+
+						// Adjust the feed links as well.
+						for (const [key, feed_link] of Object.entries(final_options.feed_options.feedLinks)) {
+							let feed_link_file = feed_link.split("/").pop();
+							let ext = re.exec(feed_link_file)[1];
+							let final_name = name + '.' + ext;
+							final_options.feed_options.feedLinks[key] = feed_link.replace(feed_link_file, final_name);
+						}
+
+						console.log(final_options);
 
 						// Now generate the new feed.
 						await new LIB.Generator( final_pages, final_options, context ).generate();
