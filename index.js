@@ -1,9 +1,6 @@
 'use strict';
 
-const _		= {
-	defaultsDeep: require('lodash.defaultsdeep'),
-	isEmpty			: require('lodash.isempty'),
-};
+const _ = require('lodash');
 
 // -----------------------------------------------------------------------------
 
@@ -224,13 +221,13 @@ PLUGIN.get_options_defaults = ( context ) =>
 
 		// -------------------------------------------------------------------------
 
-		count: 20,
+		count: 100,
 
 		// optional sorting function for the entries.
 		// Gets the array entries as the input, expects the sorted array
 		// as its output.
 		// e.g.:	 sort:	entries => _.reverse( _.sortBy( entries, 'date' ) ),
-		sort: entries => entries,	// defaults to just returning it as it is
+		sort:  entries => _.reverse( _.sortBy( entries, 'date' ) ),	// defaults to just returning it as it is
 
 		// -------------------------------------------------------------------------
 
@@ -259,8 +256,8 @@ PLUGIN.get_options = ( plugin_options, context ) =>
 	if ( _.isEmpty( PLUGIN.options ) )
 	{
 		PLUGIN.options = _.defaultsDeep(
-			plugin_options,
-			PLUGIN.get_options_defaults( context )
+				plugin_options,
+				PLUGIN.get_options_defaults( context )
 		);
 
 		// -------------------------------------------------------------------------
@@ -282,7 +279,7 @@ PLUGIN.get_options = ( plugin_options, context ) =>
 		// default feedLinks
 
 		if ( 		! PLUGIN.options.feed_options.hasOwnProperty('feedLinks')
-				 && ! _.isEmpty( PLUGIN.options.feeds ) )
+				&& ! _.isEmpty( PLUGIN.options.feeds ) )
 		{
 			PLUGIN.options.feed_options.feedLinks = {};
 
@@ -345,8 +342,8 @@ PLUGIN.good_to_go = ( plugin_options, context ) =>
 	// ---------------------------------------------------------------------------
 
 	return ( 		options.canonical_base
-					 && ! _.isEmpty( options.feeds )
-					 && ! _.isEmpty( PLUGIN.pages ) );
+			&& ! _.isEmpty( options.feeds )
+			&& ! _.isEmpty( PLUGIN.pages ) );
 
 };
 // PLUGIN.good_to_go()
